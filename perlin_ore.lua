@@ -1,9 +1,4 @@
 /c
-local name   = 'iron-ore'
-local oreAmount = 5000
-local w = 200
-local h = 200
-
 
 local pos = game.player.position
 
@@ -51,8 +46,9 @@ local perlin_gy = {}
 local perlin_randMax = 256
 
 local function perlin_load()
+    math.randomseed(1234)
     for i=1,perlin_size do
-        perlin_p[i] = permutation[i]
+        perlin_p[i] = math.random(256)
         
         perlin_p[255+i] = perlin_p[i]
     end
@@ -87,11 +83,18 @@ local function perlin_noise( x, y, z )
 end
 perlin_load()
 
+local w = 200
+local h = 200
+
 local kdiff = 110
-local kl = 1
+local kl = 2.6
 
 local w2 = w*kl / 2
 local h2 = h*kl / 2
+
+
+local name   = 'iron-ore'
+local oreAmount = 120000
 
 local lmax = math.sqrt(w2*w2 + h2*h2)
 for i = 0,w*kl do for j = 0,h*kl do
@@ -100,12 +103,12 @@ for i = 0,w*kl do for j = 0,h*kl do
 
 	local l = (math.sqrt(x*x + y*y)) / lmax
 	l = l * l * 0.8
-	local v = perlin_noise((i/kl)/kdiff, (j/kl)/kdiff, 4543)	
+	local v = perlin_noise((j/kl)/kdiff, (i/kl)/kdiff, 6722)	
 	
 	if (v > l) then
 		game.player.surface.create_entity{
 		    name = name,
-		    amount = 1000,
+		    amount = oreAmount,
 		    force = 'neutral',
 		    position = {pos.x+i-(w*kl)/2,pos.y+j-(h*kl)/2},
 			}
