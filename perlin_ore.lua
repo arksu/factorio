@@ -83,18 +83,18 @@ local function perlin_noise( x, y, z )
 end
 perlin_load()
 
-local w = 200
-local h = 200
+local w = 180
+local h = 180
 
 local kdiff = 110
-local kl = 2.6
+local kl = 3.2
 
 local w2 = w*kl / 2
 local h2 = h*kl / 2
 
 
 local name   = 'iron-ore'
-local oreAmount = 120000
+local oreAmount = 130000
 
 local lmax = math.sqrt(w2*w2 + h2*h2)
 for i = 0,w*kl do for j = 0,h*kl do
@@ -102,8 +102,8 @@ for i = 0,w*kl do for j = 0,h*kl do
 	local y = j - h2
 
 	local l = (math.sqrt(x*x + y*y)) / lmax
-	l = l * l * 0.8
-	local v = perlin_noise((j/kl)/kdiff, (i/kl)/kdiff, 6722)	
+	l = l * l * 0.7
+	local v = perlin_noise((i/kl)/kdiff, (j/kl)/kdiff, 48)	
 	
 	if (v > l) then
 		game.player.surface.create_entity{
